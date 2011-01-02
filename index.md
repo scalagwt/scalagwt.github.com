@@ -6,7 +6,8 @@ title: Scala+GWT
 Scala+GWT
 =========
 
-The Scala+GWT project aims to compile Scala code for the browser via the GWT toolchain
+The Scala+GWT project aims to compile Scala code for the browser
+via the GWT toolchain.
 
 Status
 ------
@@ -23,7 +24,7 @@ Contributors
 
 Google Group
 ------------
-scalagwt@googlegroups.com
+[scalagwt@googlegroups.com](http://groups.google.com/group/scalagwt)
 
 Code Review
 -----------
