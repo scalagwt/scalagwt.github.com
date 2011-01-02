@@ -9,6 +9,8 @@ Scala+GWT
 The Scala+GWT project aims to compile Scala code for the browser
 via the GWT toolchain.
 
+[Why?](why)
+
 Status
 ------
 
