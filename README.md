@@ -9,25 +9,25 @@ HOWTO (for contributors)
 
 Clone this repository:
 
-  git clone git@github.com:scalagwt/scalagwt.github.com.git
+    git clone git@github.com:scalagwt/scalagwt.github.com.git
 
 Then go to work on the appropriate files.
 
 While you are working, if you would like to preview locally, install
 and run jekyll.  Something like this:
 
-  gem install jekyll
-  jekyll --server
+    gem install jekyll
+    jekyll --server
 
 will allow you to open the preview of the site on
 `http://localhost:4000`  You may have to install some dependencies, like
-pygments, if you don't already have them.
+[pygments](http://pygments.org/), if you don't already have them.
 
 When your changes are ready, just commit them and push back up to
 github:
 
-  git commit
-  git push origin master
+    git commit
+    git push origin master
 
 That's it!  GitHub runs Jekyll as part of their GitHub Pages service,
 and will generate the static version of the site and mount it at the
