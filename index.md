@@ -20,6 +20,7 @@ Contributors
 
 * Grzegorz Kossakowski
 * Lex Spoon
+* Aaron Novstrup
 * Rob Heittman
 
 Google Group
