@@ -17,7 +17,7 @@ While you are working, if you would like to preview locally, install
 and run jekyll.  Something like this:
 
     gem install jekyll
-    jekyll --server
+    jekyll --server --auto
 
 will allow you to open the preview of the site on
 `http://localhost:4000`  You may have to install some dependencies, like
