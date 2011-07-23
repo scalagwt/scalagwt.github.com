@@ -27,7 +27,7 @@ When your changes are ready, just commit them and push back up to
 github:
 
     git commit
-    git push origin master
+    git push
 
 That's it!  GitHub runs Jekyll as part of their GitHub Pages service,
 and will generate the static version of the site and mount it at the
