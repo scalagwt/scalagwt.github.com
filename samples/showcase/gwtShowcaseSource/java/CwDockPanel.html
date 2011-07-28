@@ -1,0 +1,53 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwDockPanelCenter(): String
+
+    def cwDockPanelDescription(): String
+
+    def cwDockPanelEast(): String
+
+    def cwDockPanelName(): String
+
+    def cwDockPanelNorth1(): String
+
+    def cwDockPanelNorth2(): String
+
+    def cwDockPanelSouth1(): String
+
+    def cwDockPanelSouth2(): String
+
+    def cwDockPanelWest(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create a Dock Panel
+    val dock = new DockPanel()
+    dock.setStyleName("cw-DockPanel")
+    dock.setSpacing(4)
+    dock.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER)
+
+    // Add text all around
+    dock.add(new HTML(constants.cwDockPanelNorth1), DockPanel.NORTH)
+    dock.add(new HTML(constants.cwDockPanelSouth1), DockPanel.SOUTH)
+    dock.add(new HTML(constants.cwDockPanelEast), DockPanel.EAST)
+    dock.add(new HTML(constants.cwDockPanelWest), DockPanel.WEST)
+    dock.add(new HTML(constants.cwDockPanelNorth2), DockPanel.NORTH)
+    dock.add(new HTML(constants.cwDockPanelSouth2), DockPanel.SOUTH)
+
+    // Add scrollable text in the center
+    val contents = new HTML(constants.cwDockPanelCenter)
+    val scroller = new ScrollPanel(contents)
+    scroller.setSize("400px", "100px")
+    dock.add(scroller, DockPanel.CENTER)
+
+    // Return the content
+    dock.ensureDebugId("cwDockPanel")
+    dock
+  }
+
+</pre>

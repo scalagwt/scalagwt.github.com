@@ -1,0 +1,56 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwRadioButtonColors(): Array[String]
+
+    def cwRadioButtonDescription(): String
+
+    def cwRadioButtonName(): String
+
+    def cwRadioButtonSelectColor(): String
+
+    def cwRadioButtonSelectSport(): String
+
+    def cwRadioButtonSports(): Array[String]
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create a vertical panel to align the radio buttons
+    val vPanel = new VerticalPanel()
+    vPanel.add(new HTML(constants.cwRadioButtonSelectColor))
+
+    // Add some radio buttons to a group called 'color'
+    val colors = constants.cwRadioButtonColors
+    for (i &lt;- 0 until colors.length) {
+      val color = colors(i)
+      val radioButton = new RadioButton("color", color)
+      radioButton.ensureDebugId("cwRadioButton-color-" + color)
+      if (i == 2) {
+        radioButton.setEnabled(false)
+      }
+      vPanel.add(radioButton)
+    }
+
+    // Add a new header to select your favorite sport
+    vPanel.add(new HTML("&lt;br&gt;" + constants.cwRadioButtonSelectSport))
+
+    // Add some radio buttons to a group called 'sport'
+    val sports = constants.cwRadioButtonSports
+    for (i &lt;- 0 until sports.length) {
+      val sport = sports(i)
+      val radioButton = new RadioButton("sport", sport)
+      radioButton.ensureDebugId("cwRadioButton-sport-" + sport.replaceAll(" ", ""))
+      if (i == 2) {
+        radioButton.setValue(true)
+      }
+      vPanel.add(radioButton)
+    }
+
+    vPanel
+  }
+
+</pre>

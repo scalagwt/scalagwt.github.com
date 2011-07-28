@@ -1,0 +1,148 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    @DefaultStringValue("Cancel")
+    def cwAnimationCancel(): String
+
+    def cwAnimationDescription(): String
+
+    def cwAnimationName(): String
+
+    @DefaultStringValue("Animation Options")
+    def cwAnimationOptions(): String
+
+    @DefaultStringValue("Start")
+    def cwAnimationStart(): String
+  }
+
+  /**
+   * A custom animation that moves a small image around a circle in an
+   * {@link AbsolutePanel}.
+   */
+  class CustomAnimation extends Animation {
+    /**
+     * The x-coordinate of the center of the circle.
+     */
+    private val centerX = 120
+
+    /**
+     * The y-coordinate of the center of the circle.
+     */
+    private val centerY = 120
+
+    /**
+     * The radius of the circle.
+     */
+    private val radius = 100
+
+    // Set the start position of the widgets
+    onComplete()
+
+    override protected def onComplete() {
+      super.onComplete()
+      startButton.setEnabled(true)
+      cancelButton.setEnabled(false)
+    }
+
+    override protected def onStart() {
+      super.onStart()
+      startButton.setEnabled(false)
+      cancelButton.setEnabled(true)
+    }
+
+    override protected def onUpdate(progress: Double) {
+      val radian = 2 * java.lang.Math.PI * progress
+      updatePosition(animateeLeft, radian, 0)
+      updatePosition(animateeBottom, radian, 0.5 * java.lang.Math.PI)
+      updatePosition(animateeRight, radian, java.lang.Math.PI)
+      updatePosition(animateeTop, radian, 1.5 * java.lang.Math.PI)
+    }
+
+    /**
+     * Update the position of the widget, adding a rotational offset.
+     * 
+     * @param w the widget to move
+     * @param radian the progress in radian
+     * @param offset the offset in radian
+     */
+    private def updatePosition(w: Widget, _radian: Double, offset: Double) {
+      val radian = _radian + offset
+      val x = (radius * java.lang.Math.cos(radian) + centerX).toInt
+      val y = (radius * java.lang.Math.sin(radian) + centerY).toInt
+      absolutePanel.setWidgetPosition(w, x, y)
+    }
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create a new panel
+    absolutePanel = new AbsolutePanel()
+    absolutePanel.setSize("250px", "250px")
+    absolutePanel.ensureDebugId("cwAbsolutePanel")
+
+    // Add a widget that we will animate
+    animateeTop = new Image(Showcase.images.gwtLogoThumb)
+    animateeBottom = new Image(Showcase.images.gwtLogoThumb)
+    animateeLeft = new Image(Showcase.images.gwtLogoThumb)
+    animateeRight = new Image(Showcase.images.gwtLogoThumb)
+    absolutePanel.add(animateeTop)
+    absolutePanel.add(animateeBottom)
+    absolutePanel.add(animateeLeft)
+    absolutePanel.add(animateeRight)
+
+    // Wrap the absolute panel in a DecoratorPanel
+    val absolutePanelWrapper = new DecoratorPanel()
+    absolutePanelWrapper.setWidget(absolutePanel)
+
+    // Create the options bar
+    val optionsWrapper = new DecoratorPanel()
+    optionsWrapper.setWidget(createOptionsBar())
+
+    // Add the components to a panel and return it
+    val mainLayout = new HorizontalPanel()
+    mainLayout.setSpacing(10)
+    mainLayout.add(optionsWrapper)
+    mainLayout.add(absolutePanelWrapper)
+
+    // Create the custom animation
+    animation = new CustomAnimation()
+
+    // Return the layout
+    mainLayout
+  }
+
+  /**
+   * Create an options panel that allows users to select a widget and reposition
+   * it.
+   * 
+   * @return the new options panel
+   */
+  private def createOptionsBar(): Widget = {
+    // Create a panel to move components around
+    val optionsBar = new VerticalPanel()
+    optionsBar.setSpacing(5)
+    optionsBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER)
+
+    // Add a title
+    optionsBar.add(new HTML("&lt;b&gt;" + constants.cwAnimationOptions + "&lt;/b&gt;"))
+
+    // Add start button
+    startButton = new Button(constants.cwAnimationStart)
+    startButton.addStyleName("sc-FixedWidthButton")
+    startButton onClick { _ =&gt; animation.run(2000) }
+    optionsBar.add(startButton)
+
+    // Add cancel button
+    cancelButton = new Button(constants.cwAnimationCancel)
+    cancelButton.addStyleName("sc-FixedWidthButton")
+    cancelButton onClick { _ =&gt; animation.cancel() }
+    optionsBar.add(cancelButton)
+
+    // Return the options bar
+    optionsBar
+  }
+
+</pre>

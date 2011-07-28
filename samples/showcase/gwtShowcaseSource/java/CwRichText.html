@@ -1,0 +1,30 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwRichTextDescription(): String
+
+    def cwRichTextName(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create the text area and toolbar
+    val area = new RichTextArea()
+    area.ensureDebugId("cwRichText-area")
+    area.setSize("100%", "14em")
+    val toolbar = new RichTextToolbar(area)
+    toolbar.ensureDebugId("cwRichText-toolbar")
+    toolbar.setWidth("100%")
+
+    // Add the components to a panel
+    val grid = new Grid(2, 1)
+    grid.setStyleName("cw-RichText")
+    grid.setWidget(0, 0, toolbar)
+    grid.setWidget(1, 0, area)
+    grid
+  }
+
+</pre>

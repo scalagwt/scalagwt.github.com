@@ -1,0 +1,34 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwSuggestBoxWords: Array[String]
+
+    def cwSuggestBoxDescription: String
+
+    def cwSuggestBoxName: String
+
+    def cwSuggestBoxLabel: String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  def onInitialize: Widget = {
+    // Define the oracle that finds suggestions
+    val oracle = new MultiWordSuggestOracle
+    val words = constants.cwSuggestBoxWords
+    words foreach { oracle.add(_) }
+
+    // Create the suggest box
+    val suggestBox = new SuggestBox(oracle)
+    suggestBox.ensureDebugId("cwSuggestBox")
+    val suggestPanel = new VerticalPanel
+    suggestPanel.add(new HTML(constants.cwSuggestBoxLabel))
+    suggestPanel.add(suggestBox)
+
+    // Return the panel
+    suggestPanel
+  }
+
+</pre>

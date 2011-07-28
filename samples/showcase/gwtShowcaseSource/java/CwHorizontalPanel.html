@@ -1,0 +1,30 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwHorizontalPanelButton(): String
+
+    def cwHorizontalPanelDescription(): String
+
+    def cwHorizontalPanelName(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create a Horizontal Panel
+    val hPanel = new HorizontalPanel()
+    hPanel.setSpacing(5)
+
+    // Add some content to the panel
+    for (i &lt;- 1 until 5) {
+      hPanel.add(new Button(constants.cwHorizontalPanelButton + " " + i))
+    }
+
+    // Return the content
+    hPanel.ensureDebugId("cwHorizontalPanel")
+    hPanel
+  }
+
+</pre>

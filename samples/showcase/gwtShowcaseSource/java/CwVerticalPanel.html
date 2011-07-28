@@ -1,0 +1,30 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwVerticalPanelButton(): String
+
+    def cwVerticalPanelDescription(): String
+
+    def cwVerticalPanelName(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create a Vertical Panel
+    val vPanel = new VerticalPanel()
+    vPanel.setSpacing(5)
+
+    // Add some content to the panel
+    for (i &lt;- 1 until 10) {
+      vPanel.add(new Button(constants.cwVerticalPanelButton + " " + i))
+    }
+
+    // Return the content
+    vPanel.ensureDebugId("cwVerticalPanel")
+    vPanel
+  }
+
+</pre>

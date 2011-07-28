@@ -1,0 +1,266 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwTreeMozartWorkConcertos: Array[String]
+
+    def cwTreeBrahmsWorkSymphonies: Array[String]
+
+    def cwTreeConcertos: String
+
+    def cwTreeItem: String
+
+    def cwTreeComposers: Array[String]
+
+    def cwTreeBeethovenWorkSonatas: Array[String]
+
+    def cwTreeSymphonies: String
+
+    def cwTreeName: String
+
+    def cwTreeQuartets: String
+
+    def cwTreeBrahmsWorkQuartets: Array[String]
+
+    def cwTreeBrahmsWorkConcertos: Array[String]
+
+    def cwTreeBrahmsWorkSonatas: Array[String]
+
+    def cwTreeBeethovenWorkQuartets: Array[String]
+
+    def cwTreeDynamicLabel: String
+
+    def cwTreeBeethovenWorkSymphonies: Array[String]
+
+    def cwTreeStaticLabel: String
+
+    def cwTreeDescription: String
+
+    def cwTreeBeethovenWorkConcertos: Array[String]
+
+    def cwTreeSonatas: String
+  }
+
+  /**
+   * The constants used in this Content Widget.
+   */
+  @ShowcaseSource
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwTreeMozartWorkConcertos: Array[String]
+
+    def cwTreeBrahmsWorkSymphonies: Array[String]
+
+    def cwTreeConcertos: String
+
+    def cwTreeItem: String
+
+    def cwTreeComposers: Array[String]
+
+    def cwTreeBeethovenWorkSonatas: Array[String]
+
+    def cwTreeSymphonies: String
+
+    def cwTreeName: String
+
+    def cwTreeQuartets: String
+
+    def cwTreeBrahmsWorkQuartets: Array[String]
+
+    def cwTreeBrahmsWorkConcertos: Array[String]
+
+    def cwTreeBrahmsWorkSonatas: Array[String]
+
+    def cwTreeBeethovenWorkQuartets: Array[String]
+
+    def cwTreeDynamicLabel: String
+
+    def cwTreeBeethovenWorkSymphonies: Array[String]
+
+    def cwTreeStaticLabel: String
+
+    def cwTreeDescription: String
+
+    def cwTreeBeethovenWorkConcertos: Array[String]
+
+    def cwTreeSonatas: String
+  }
+}
+@ShowcaseStyle(Array(".gwt-Tree"))
+      extends ContentWidget(constants) {
+
+  def getDescription: String = constants.cwTreeDescription
+  def getName: String = constants.cwTreeName
+
+  /**
+   * Initialize this example.
+   */
+  @ShowcaseSource
+  def onInitialize: Widget = {
+    // Create a static tree and a container to hold it
+    val staticTree = createStaticTree
+    staticTree.setAnimationEnabled(true)
+    staticTree.ensureDebugId("cwTree-staticTree")
+    val staticTreeWrapper = new ScrollPanel(staticTree)
+    staticTreeWrapper.ensureDebugId("cwTree-staticTree-Wrapper")
+    staticTreeWrapper.setSize("300px", "300px")
+
+    // Wrap the static tree in a DecoratorPanel
+    val staticDecorator = new DecoratorPanel
+    staticDecorator.setWidget(staticTreeWrapper)
+
+    // Create a dynamically generated tree and a container to hold it
+    val dynamicTree = createDynamicTree
+    dynamicTree.ensureDebugId("cwTree-dynamicTree")
+    val dynamicTreeWrapper = new ScrollPanel(dynamicTree)
+    dynamicTreeWrapper.ensureDebugId("cwTree-dynamicTree-Wrapper")
+    dynamicTreeWrapper.setSize("300px", "300px")
+
+    // Wrap the dynamic tree in a DecoratorPanel
+    val dynamicDecorator = new DecoratorPanel
+    dynamicDecorator.setWidget(dynamicTreeWrapper)
+
+    // Combine trees onto the page
+    val grid = new Grid(2, 3)
+    grid.setCellPadding(2)
+    grid.getRowFormatter.setVerticalAlign(1, HasVerticalAlignment.ALIGN_TOP)
+    grid.setHTML(0, 0, constants.cwTreeStaticLabel)
+    grid.setHTML(0, 1, "&nbsp;
+
+  /**
+   * Initialize this example.
+   */
+  def onInitialize: Widget = {
+    // Create a static tree and a container to hold it
+    val staticTree = createStaticTree
+    staticTree.setAnimationEnabled(true)
+    staticTree.ensureDebugId("cwTree-staticTree")
+    val staticTreeWrapper = new ScrollPanel(staticTree)
+    staticTreeWrapper.ensureDebugId("cwTree-staticTree-Wrapper")
+    staticTreeWrapper.setSize("300px", "300px")
+
+    // Wrap the static tree in a DecoratorPanel
+    val staticDecorator = new DecoratorPanel
+    staticDecorator.setWidget(staticTreeWrapper)
+
+    // Create a dynamically generated tree and a container to hold it
+    val dynamicTree = createDynamicTree
+    dynamicTree.ensureDebugId("cwTree-dynamicTree")
+    val dynamicTreeWrapper = new ScrollPanel(dynamicTree)
+    dynamicTreeWrapper.ensureDebugId("cwTree-dynamicTree-Wrapper")
+    dynamicTreeWrapper.setSize("300px", "300px")
+
+    // Wrap the dynamic tree in a DecoratorPanel
+    val dynamicDecorator = new DecoratorPanel
+    dynamicDecorator.setWidget(dynamicTreeWrapper)
+
+    // Combine trees onto the page
+    val grid = new Grid(2, 3)
+    grid.setCellPadding(2)
+    grid.getRowFormatter.setVerticalAlign(1, HasVerticalAlignment.ALIGN_TOP)
+    grid.setHTML(0, 0, constants.cwTreeStaticLabel)
+    grid.setHTML(0, 1, "&nbsp;&nbsp;&nbsp;")
+    grid.setHTML(0, 2, constants.cwTreeDynamicLabel)
+    grid.setWidget(1, 0, staticDecorator)
+    grid.setHTML(1, 1, "&nbsp;&nbsp;&nbsp;")
+    grid.setWidget(1, 2, dynamicDecorator)
+
+    // Wrap the trees in DecoratorPanels
+    grid
+  }
+
+  /**
+   * Add a new section of music created by a specific composer.
+   *
+   * @param parent the parent   { @link TreeItem } where the section will be added
+   * @param label the label of the new section of music
+   * @param composerWorks an array of works created by the composer
+   */
+  private def addMusicSection(parent: TreeItem) = { (label: String, composerWorks: Array[String]) =&gt;
+    val section = parent.addItem(label)
+    for (work &lt;- composerWorks) {
+      section.addItem(work)
+    }
+  }
+
+  /**
+   * Create a dynamic tree that will add a random number of children to each
+   * node as it is clicked.
+   *
+   * @return the new tree
+   */
+  private def createDynamicTree: Tree = {
+    // Create a new tree
+    val dynamicTree = new Tree
+
+    // Add some default tree items
+    for (i &lt;- 0 until 5) {
+      val item = dynamicTree.addItem(constants.cwTreeItem + " " + i)
+
+      // Temporarily add an item so we can expand this node
+      item.addItem("")
+    }
+
+    // Add a handler that automatically generates some children
+    dynamicTree onOpen { event =&gt;
+      val item = event.getTarget
+      if (item.getChildCount == 1) {
+        // Close the item immediately
+        item.setState(false, false)
+
+        // Add a random number of children to the item
+        val itemText = item.getText
+        val numChildren = Random.nextInt(5) + 2
+        for (i &lt;- 0 until numChildren) {
+          val child = item.addItem(itemText + "." + i)
+          child.addItem("")
+        }
+
+        // Remove the temporary item when we finish loading
+        item.getChild(0).remove
+
+        // Reopen the item
+        item.setState(true, false)
+      }
+    }
+
+    // Return the tree
+    dynamicTree
+  }
+
+  /**
+   * Create a static tree with some data in it.
+   *
+   * @return the new tree
+   */
+  private def createStaticTree: Tree = {
+    // Create the tree
+    val composers = constants.cwTreeComposers
+    val concertosLabel = constants.cwTreeConcertos
+    val quartetsLabel = constants.cwTreeQuartets
+    val sonatasLabel = constants.cwTreeSonatas
+    val symphoniesLabel = constants.cwTreeSymphonies
+    val staticTree = new Tree
+
+    // Add some of Beethoven's music
+    val beethovenItem = staticTree.addItem(composers(0))
+    List(concertosLabel -&gt; constants.cwTreeBeethovenWorkConcertos,
+         quartetsLabel -&gt; constants.cwTreeBeethovenWorkQuartets,
+         sonatasLabel -&gt; constants.cwTreeBeethovenWorkSonatas,
+         symphoniesLabel -&gt; constants.cwTreeBeethovenWorkSymphonies) foreach addMusicSection(beethovenItem).tupled
+
+    // Add some of Brahms's music
+    val brahmsItem = staticTree.addItem(composers(1))
+    List(concertosLabel -&gt; constants.cwTreeBrahmsWorkConcertos,
+         quartetsLabel -&gt; constants.cwTreeBrahmsWorkQuartets,
+         sonatasLabel -&gt; constants.cwTreeBrahmsWorkSonatas,
+         symphoniesLabel -&gt; constants.cwTreeBrahmsWorkSymphonies) foreach addMusicSection(brahmsItem).tupled
+
+    // Add some of Mozart's music
+    val mozartItem = staticTree.addItem(composers(2))
+    addMusicSection(mozartItem)(concertosLabel, constants.cwTreeMozartWorkConcertos)
+
+    // Return the tree
+    staticTree
+  }
+
+</pre>

@@ -1,0 +1,41 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwBasicButtonClickMessage(): String
+
+    def cwBasicButtonDescription(): String
+
+    def cwBasicButtonDisabled(): String
+
+    def cwBasicButtonName(): String
+
+    def cwBasicButtonNormal(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create a panel to align the widgets
+    val hPanel = new HorizontalPanel()
+    hPanel.setSpacing(10);
+
+    // Add a normal button
+    val normalButton = new Button(
+        constants.cwBasicButtonNormal,
+        (_: ClickEvent) =&gt; Window.alert(constants.cwBasicButtonClickMessage))
+    normalButton.ensureDebugId("cwBasicButton-normal")
+    hPanel.add(normalButton)
+
+    // Add a disabled button
+    val disabledButton = new Button(constants.cwBasicButtonDisabled)
+    disabledButton.ensureDebugId("cwBasicButton-disabled")
+    disabledButton.setEnabled(false)
+    hPanel.add(disabledButton)
+
+    // Return the panel
+    hPanel
+  }
+
+</pre>

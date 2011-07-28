@@ -1,0 +1,82 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwListBoxSelectAll: String
+
+    def cwListBoxVacations: Array[String]
+
+    def cwListBoxSelectCategory: String
+
+    def cwListBoxDescription: String
+
+    def cwListBoxName: String
+
+    def cwListBoxCategories: Array[String]
+
+    def cwListBoxSports: Array[String]
+
+    def cwListBoxCars: Array[String]
+  }
+
+  /**
+   * Initialize this example.
+   */
+  def onInitialize: Widget = {
+    // Create a panel to align the Widgets
+    val hPanel = new HorizontalPanel
+    hPanel.setSpacing(20)
+
+    // Add a drop box with the list types
+    val dropBox = new ListBox(false)
+    val listTypes: Array[String] = constants.cwListBoxCategories
+    listTypes foreach { dropBox.addItem(_) }
+    dropBox.ensureDebugId("cwListBox-dropBox")
+    val dropBoxPanel = new VerticalPanel
+    dropBoxPanel.setSpacing(4)
+    dropBoxPanel.add(new HTML(constants.cwListBoxSelectCategory))
+    dropBoxPanel.add(dropBox)
+    hPanel.add(dropBoxPanel)
+
+    // Add a list box with multiple selection enabled
+    val multiBox = new ListBox(true)
+    multiBox.ensureDebugId("cwListBox-multiBox")
+    multiBox.setWidth("11em")
+    multiBox.setVisibleItemCount(10)
+    val multiBoxPanel = new VerticalPanel
+    multiBoxPanel.setSpacing(4)
+    multiBoxPanel.add(new HTML(constants.cwListBoxSelectAll))
+    multiBoxPanel.add(multiBox)
+    hPanel.add(multiBoxPanel)
+
+    // Add a handler to handle drop box events
+    dropBox onChange { _ =&gt;
+      showCategory(multiBox, dropBox.getSelectedIndex)
+      multiBox.ensureDebugId("cwListBox-multiBox")
+    }
+
+    // Show default category
+    showCategory(multiBox, 0)
+    multiBox.ensureDebugId("cwListBox-multiBox")
+
+    // Return the panel
+    hPanel
+  }
+
+  /**
+   * Display the options for a given category in the list box.
+   *
+   * @param listBox the ListBox to add the options to
+   * @param category the category index
+   */
+  private def showCategory(listBox: ListBox, category: Int): Unit = {
+    listBox.clear
+    val listData = category match {
+      case 0 =&gt; constants.cwListBoxCars
+      case 1 =&gt; constants.cwListBoxSports
+      case 2 =&gt; constants.cwListBoxVacations
+    }
+    listData foreach { listBox.addItem(_) }
+  }
+
+</pre>

@@ -1,0 +1,180 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwAbsolutePanelClickMe(): String
+
+    def cwAbsolutePanelDescription(): String
+
+    def cwAbsolutePanelHelloWorld(): String
+
+    def cwAbsolutePanelItemsToMove(): String
+
+    def cwAbsolutePanelLeft(): String
+
+    def cwAbsolutePanelName(): String
+
+    def cwAbsolutePanelTop(): String
+
+    def cwAbsolutePanelWidgetNames(): Array[String]
+  }
+
+  /**
+   * The input field used to set the left position of a {@link Widget}.
+   */
+  private var leftPosBox: TextBox  = null;
+
+  /**
+   * The list box of items that can be repositioned.
+   */
+  private val listBox = new ListBox();
+
+  /**
+   * The input field used to set the top position of a {@link Widget}.
+   */
+  private var topPosBox: TextBox = null;
+
+  /**
+   * A mapping between the name of a {@link Widget} and the widget in the
+   * {@link AbsolutePanel}.
+   */
+  private var widgetMap: Map[String, Widget] = null;
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create a new panel
+    widgetMap = new LinkedHashMap[String, Widget]();
+    absolutePanel = new AbsolutePanel();
+    absolutePanel.setSize("250px", "250px");
+    absolutePanel.ensureDebugId("cwAbsolutePanel");
+
+    // Add an HTML widget to the panel
+    val widgetNames = constants.cwAbsolutePanelWidgetNames;
+    val text = new HTML(constants.cwAbsolutePanelHelloWorld);
+    absolutePanel.add(text, 10, 20);
+    widgetMap.put(widgetNames(0), text);
+
+    // Add a Button to the panel
+    val button = new Button(constants.cwAbsolutePanelClickMe);
+    absolutePanel.add(button, 80, 45);
+    widgetMap.put(widgetNames(1), button);
+
+    // Add a Button to the panel
+    val grid = new Grid(2, 3);
+    grid.setBorderWidth(1);
+    for (i &lt;- 0 until 3) {
+      grid.setHTML(0, i, i + "");
+      grid.setWidget(1, i, new Image(Showcase.images.gwtLogoThumb()));
+    }
+    absolutePanel.add(grid, 60, 100);
+    widgetMap.put(widgetNames(2), grid);
+
+    // Wrap the absolute panel in a DecoratorPanel
+    val absolutePanelWrapper = new DecoratorPanel();
+    absolutePanelWrapper.setWidget(absolutePanel);
+
+    // Create the options bar
+    val optionsWrapper = new DecoratorPanel();
+    optionsWrapper.setWidget(createOptionsBar());
+
+    // Add the components to a panel and return it
+    val mainLayout = new HorizontalPanel();
+    mainLayout.setSpacing(10);
+    mainLayout.add(optionsWrapper);
+    mainLayout.add(absolutePanelWrapper);
+
+    mainLayout;
+  }
+
+  /**
+   * Initialize the options panel after the {@link AbsolutePanel} has been
+   * attached to the page.
+   */
+  override def onInitializeComplete() {
+    DeferredCommand.addCommand(new Command() {
+      def execute() {
+        updateSelectedItem();
+      }
+    });
+  }
+
+  /**
+   * Create an options panel that allows users to select a widget and reposition
+   * it.
+   * 
+   * @return the new options panel
+   */
+  private def createOptionsBar(): Widget = {
+    // Create a panel to move components around
+    val optionsBar = new FlexTable();
+    topPosBox = new TextBox();
+    topPosBox.setWidth("3em");
+    topPosBox.setText("100");
+    leftPosBox = new TextBox();
+    leftPosBox.setWidth("3em");
+    leftPosBox.setText("60");
+    optionsBar.setHTML(0, 0, constants.cwAbsolutePanelItemsToMove());
+    optionsBar.setWidget(0, 1, listBox);
+    optionsBar.setHTML(1, 0, constants.cwAbsolutePanelTop());
+    optionsBar.setWidget(1, 1, topPosBox);
+    optionsBar.setHTML(2, 0, constants.cwAbsolutePanelLeft());
+    optionsBar.setWidget(2, 1, leftPosBox);
+
+    // Add the widgets to the list box
+    for (name &lt;- widgetMap.keys) {
+      listBox.addItem(name);
+    }
+
+    // Set the current item position when the user selects an item
+    listBox.addChangeHandler(new ChangeHandler() {
+      def onChange(event: ChangeEvent) {
+        updateSelectedItem();
+      }
+    });
+
+    // Move the item as the user changes the value in the left and top boxes
+    val repositionHandler = new KeyUpHandler() {
+      def onKeyUp(event: KeyUpEvent) {
+        repositionItem();
+      }
+    };
+    topPosBox.addKeyUpHandler(repositionHandler);
+    leftPosBox.addKeyUpHandler(repositionHandler);
+
+    // Return the options bar
+    optionsBar;
+  }
+
+  /**
+   * Reposition an item when the user changes the value in the top or left
+   * position text boxes.
+   */
+  private def repositionItem() {
+    // Get the selected item to move
+    val name = listBox.getValue(listBox.getSelectedIndex);
+    val item = widgetMap.get(name).get;
+
+    // Reposition the item
+    try {
+      val top = Integer.parseInt(topPosBox.getText);
+      val left = Integer.parseInt(leftPosBox.getText);
+      absolutePanel.setWidgetPosition(item, left, top);
+    } catch {
+      case e: NumberFormatException =&gt; // Ignore invalid user input
+    }
+  }
+
+  /**
+   * Update the top and left position text fields when the user selects a new
+   * item to move.
+   */
+  private def updateSelectedItem() {
+    val name = listBox.getValue(listBox.getSelectedIndex);
+    val item = widgetMap.get(name).get
+    topPosBox.setText(absolutePanel.getWidgetTop(item) + "");
+    leftPosBox.setText(absolutePanel.getWidgetLeft(item) + "");
+  }
+
+</pre>

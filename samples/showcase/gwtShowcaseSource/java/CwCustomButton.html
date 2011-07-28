@@ -1,0 +1,61 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwCustomButtonDescription(): String
+
+    def cwCustomButtonName(): String
+
+    def cwCustomButtonPush(): String
+
+    def cwCustomButtonToggle(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create a panel to layout the widgets
+    val vpanel = new VerticalPanel()
+    val pushPanel = new HorizontalPanel()
+    pushPanel.setSpacing(10)
+    val togglePanel = new HorizontalPanel()
+    togglePanel.setSpacing(10)
+
+    // Combine all the panels
+    vpanel.add(new HTML(constants.cwCustomButtonPush))
+    vpanel.add(pushPanel)
+    vpanel.add(new HTML("&lt;br&gt;&lt;br&gt;" + constants.cwCustomButtonToggle))
+    vpanel.add(togglePanel)
+
+    // Add a normal PushButton
+    val normalPushButton = new PushButton(
+        new Image(Showcase.images.gwtLogo()))
+    normalPushButton.ensureDebugId("cwCustomButton-push-normal")
+    pushPanel.add(normalPushButton)
+
+    // Add a disabled PushButton
+    val disabledPushButton = new PushButton(
+        new Image(Showcase.images.gwtLogo()))
+    disabledPushButton.ensureDebugId("cwCustomButton-push-disabled")
+    disabledPushButton.setEnabled(false)
+    pushPanel.add(disabledPushButton)
+
+    // Add a normal ToggleButton
+    val normalToggleButton = new ToggleButton(
+        new Image(Showcase.images.gwtLogo()))
+    normalToggleButton.ensureDebugId("cwCustomButton-toggle-normal")
+    togglePanel.add(normalToggleButton)
+
+    // Add a disabled ToggleButton
+    val disabledToggleButton = new ToggleButton(
+        new Image(Showcase.images.gwtLogo()));
+    disabledToggleButton.ensureDebugId("cwCustomButton-toggle-disabled")
+    disabledToggleButton.setEnabled(false)
+    togglePanel.add(disabledToggleButton)
+
+    // Return the panel
+    vpanel
+  }
+
+</pre>

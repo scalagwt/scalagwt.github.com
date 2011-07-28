@@ -1,0 +1,104 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwDialogBoxCaption(): String
+
+    def cwDialogBoxClose(): String
+
+    def cwDialogBoxDescription(): String
+
+    def cwDialogBoxDetails(): String
+
+    def cwDialogBoxItem(): String
+
+    def cwDialogBoxListBoxInfo(): String
+
+    def cwDialogBoxMakeTransparent(): String
+
+    def cwDialogBoxName(): String
+
+    def cwDialogBoxShowButton(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create the dialog box
+    val dialogBox = createDialogBox()
+    dialogBox.setGlassEnabled(true)
+    dialogBox.setAnimationEnabled(true)
+
+    // Create a button to show the dialog Box
+    val openButton = new Button(constants.cwDialogBoxShowButton,
+      { _: ClickEvent =&gt;
+          dialogBox.center()
+          dialogBox.show()
+      })
+
+    // Create a ListBox
+    val listDesc = new HTML("&lt;br&gt;&lt;br&gt;&lt;br&gt;" + constants.cwDialogBoxListBoxInfo)
+
+    val list = new ListBox()
+    list.setVisibleItemCount(1)
+    for (i &lt;- 10 until 0) {
+      list.addItem(constants.cwDialogBoxItem + " " + i)
+    }
+
+    // Add the button and list to a panel
+    val vPanel = new VerticalPanel()
+    vPanel.setSpacing(8)
+    vPanel.add(openButton)
+    vPanel.add(listDesc)
+    vPanel.add(list)
+
+    // Return the panel
+    vPanel
+  }
+
+  /**
+   * Create the dialog box for this example.
+   * 
+   * @return the new dialog box
+   */
+  private def createDialogBox(): DialogBox = {
+    // Create a dialog box and set the caption text
+    val dialogBox = new DialogBox()
+    dialogBox.ensureDebugId("cwDialogBox")
+    dialogBox.setText(constants.cwDialogBoxCaption)
+
+    // Create a table to layout the content
+    val dialogContents = new VerticalPanel()
+    dialogContents.setSpacing(4)
+    dialogBox.setWidget(dialogContents)
+
+    // Add some text to the top of the dialog
+    val details = new HTML(constants.cwDialogBoxDetails)
+    dialogContents.add(details)
+    dialogContents.setCellHorizontalAlignment(details,
+        HasHorizontalAlignment.ALIGN_CENTER)
+
+    // Add an image to the dialog
+    val image = new Image(Showcase.images.jimmy)
+    dialogContents.add(image)
+    dialogContents.setCellHorizontalAlignment(image,
+        HasHorizontalAlignment.ALIGN_CENTER)
+
+    // Add a close button at the bottom of the dialog
+    val closeButton = new Button(constants.cwDialogBoxClose,
+                                 (_: ClickEvent) =&gt; dialogBox.hide())
+    dialogContents.add(closeButton)
+    if (LocaleInfo.getCurrentLocale().isRTL()) {
+      dialogContents.setCellHorizontalAlignment(closeButton,
+          HasHorizontalAlignment.ALIGN_LEFT)
+    } else {
+      dialogContents.setCellHorizontalAlignment(closeButton,
+          HasHorizontalAlignment.ALIGN_RIGHT)
+    }
+
+    // Return the dialog box
+    dialogBox
+  }
+
+</pre>

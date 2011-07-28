@@ -1,0 +1,63 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwConstantsExampleDescription(): String
+
+    def cwConstantsExampleLinkText(): String
+
+    def cwConstantsExampleName(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create the internationalized constants
+    val exampleConstants = GWT.create[ExampleConstants](classOf[ExampleConstants])
+
+    // Use a FlexTable to layout the content
+    val layout = new FlexTable()
+    layout.setCellSpacing(5)
+
+    // Add a link to the source code of the Interface
+    val link = new HTML(
+        " &lt;a href=\"javascript:void(0);\"&gt;ExampleConstants&lt;/a&gt;")
+    link onClick { _ =&gt; selectTab(2) }
+    val linkPanel = new HorizontalPanel()
+    linkPanel.setSpacing(3)
+    linkPanel.add(new HTML(constants.cwConstantsExampleLinkText()))
+    linkPanel.add(link)
+    layout.setWidget(0, 0, linkPanel)
+    layout.getFlexCellFormatter().setColSpan(0, 0, 2)
+
+    // Show the first name
+    val firstNameBox = new TextBox()
+    firstNameBox.setText("Amelie")
+    firstNameBox.setWidth("17em")
+    layout.setHTML(1, 0, exampleConstants.firstName())
+    layout.setWidget(1, 1, firstNameBox)
+
+    // Show the last name
+    val lastNameBox = new TextBox()
+    lastNameBox.setText("Crutcher")
+    lastNameBox.setWidth("17em")
+    layout.setHTML(2, 0, exampleConstants.lastName())
+    layout.setWidget(2, 1, lastNameBox)
+
+    // Create a list box of favorite colors
+    val colorBox = new ListBox()
+    val colorMap = exampleConstants.colorMap()
+    for (entry &lt;- colorMap.entrySet()) {
+      val key = entry.getKey()
+      val value = entry.getValue()
+      colorBox.addItem(value, key)
+    }
+    layout.setHTML(3, 0, exampleConstants.favoriteColor())
+    layout.setWidget(3, 1, colorBox)
+
+    // Return the layout Widget
+    layout
+  }
+
+</pre>

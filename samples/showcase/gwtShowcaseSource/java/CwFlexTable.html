@@ -1,0 +1,78 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwFlexTableAddRow(): String
+
+    def cwFlexTableDescription(): String
+
+    def cwFlexTableDetails(): String
+
+    def cwFlexTableName(): String
+
+    def cwFlexTableRemoveRow(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create a Flex Table
+    val flexTable = new FlexTable()
+    flexTable.addStyleName("cw-FlexTable")
+    flexTable.setWidth("32em")
+    flexTable.setCellSpacing(5)
+    flexTable.setCellPadding(3)
+
+    // Add some text
+    flexTable.getFlexCellFormatter().setHorizontalAlignment(0, 1,
+        HasHorizontalAlignment.ALIGN_LEFT)
+    flexTable.setHTML(0, 0, constants.cwFlexTableDetails())
+    flexTable.getFlexCellFormatter().setColSpan(0, 0, 2)
+
+    // Add a button that will add more rows to the table
+    val addRowButton = new Button(constants.cwFlexTableAddRow(),
+                                  (_: ClickEvent) =&gt; addRow(flexTable))
+    addRowButton.addStyleName("sc-FixedWidthButton")
+
+    val removeRowButton = new Button(constants.cwFlexTableRemoveRow(),
+                                     (_: ClickEvent) =&gt; removeRow(flexTable))
+    removeRowButton.addStyleName("sc-FixedWidthButton")
+    val buttonPanel = new VerticalPanel()
+    buttonPanel.setStyleName("cw-FlexTable-buttonPanel")
+    buttonPanel.add(addRowButton)
+    buttonPanel.add(removeRowButton)
+    flexTable.setWidget(0, 1, buttonPanel)
+    flexTable.getFlexCellFormatter().setVerticalAlignment(0, 1, HasVerticalAlignment.ALIGN_TOP)
+
+    // Add two rows to start
+    addRow(flexTable)
+    addRow(flexTable)
+
+    // Return the panel
+    flexTable.ensureDebugId("cwFlexTable")
+    flexTable
+  }
+
+  /**
+   * Add a row to the flex table.
+   */
+  private def addRow(flexTable: FlexTable) = {
+    val numRows = flexTable.getRowCount()
+    flexTable.setWidget(numRows, 0, new Image(Showcase.images.gwtLogo()))
+    flexTable.setWidget(numRows, 1, new Image(Showcase.images.gwtLogo()))
+    flexTable.getFlexCellFormatter().setRowSpan(0, 1, numRows + 1)
+  }
+
+  /**
+   * Remove a row from the flex table.
+   */
+  private def removeRow(flexTable: FlexTable) = {
+    val numRows = flexTable.getRowCount()
+    if (numRows &gt; 1) {
+      flexTable.removeRow(numRows - 1)
+      flexTable.getFlexCellFormatter().setRowSpan(0, 1, numRows - 1)
+    }
+  }
+
+</pre>

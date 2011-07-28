@@ -1,0 +1,38 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwHorizontalSplitPanelDescription(): String
+
+    def cwHorizontalSplitPanelName(): String
+
+    def cwHorizontalSplitPanelText(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create a Horizontal Split Panel
+    val hSplit = new HorizontalSplitPanel()
+    hSplit.ensureDebugId("cwHorizontalSplitPanel")
+    hSplit.setSize("500px", "350px")
+    hSplit.setSplitPosition("30%")
+
+    // Add some content
+    var randomText = constants.cwHorizontalSplitPanelText
+    for (i &lt;- 0 until 2) {
+      randomText += randomText
+    }
+    hSplit.setRightWidget(new HTML(randomText))
+    hSplit.setLeftWidget(new HTML(randomText))
+
+    // Wrap the split panel in a decorator panel
+    val decPanel = new DecoratorPanel()
+    decPanel.setWidget(hSplit)
+
+    // Return the content
+    decPanel
+  }
+
+</pre>

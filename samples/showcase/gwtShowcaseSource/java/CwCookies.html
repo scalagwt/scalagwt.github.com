@@ -1,0 +1,138 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwCookiesDeleteCookie(): String
+
+    def cwCookiesDescription(): String
+
+    def cwCookiesExistingLabel(): String
+
+    def cwCookiesInvalidCookie(): String
+
+    def cwCookiesName(): String
+
+    def cwCookiesNameLabel(): String
+
+    def cwCookiesSetCookie(): String
+
+    def cwCookiesValueLabel(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create the panel used to layout the content
+    val mainLayout = new Grid(3, 3)
+
+    // Display the existing cookies
+    existingCookiesBox = new ListBox()
+    val deleteCookieButton = new Button(constants.cwCookiesDeleteCookie)
+    deleteCookieButton.addStyleName("sc-FixedWidthButton")
+    mainLayout.setHTML(0, 0, "&lt;b&gt;" + constants.cwCookiesExistingLabel + "&lt;/b&gt;")
+    mainLayout.setWidget(0, 1, existingCookiesBox)
+    mainLayout.setWidget(0, 2, deleteCookieButton)
+
+    // Display the name of the cookie
+    cookieNameBox = new TextBox()
+    mainLayout.setHTML(1, 0, "&lt;b&gt;" + constants.cwCookiesNameLabel + "&lt;/b&gt;")
+    mainLayout.setWidget(1, 1, cookieNameBox)
+
+    // Display the name of the cookie
+    cookieValueBox = new TextBox()
+    val setCookieButton = new Button(constants.cwCookiesSetCookie)
+    setCookieButton.addStyleName("sc-FixedWidthButton")
+    mainLayout.setHTML(2, 0, "&lt;b&gt;" + constants.cwCookiesValueLabel + "&lt;/b&gt;")
+    mainLayout.setWidget(2, 1, cookieValueBox)
+    mainLayout.setWidget(2, 2, setCookieButton)
+
+    // Add a handler to set the cookie value
+    setCookieButton onClick { _ =&gt;
+      val name = cookieNameBox.getText()
+      val value = cookieValueBox.getText()
+      val expires = new Date((new Date()).getTime() + COOKIE_TIMEOUT)
+
+      // Verify the name is valid
+      if (name.length() &lt; 1) {
+        Window.alert(constants.cwCookiesInvalidCookie())
+      } else {
+        // Set the cookie value
+        Cookies.setCookie(name, value, expires)
+        refreshExistingCookies(name)
+      }
+    }
+
+    // Add a handler to select an existing cookie
+    existingCookiesBox onChange { _ =&gt; updateExstingCookie() }
+
+    // Add a handler to delete an existing cookie
+    deleteCookieButton onClick { _ =&gt;
+      val selectedIndex = existingCookiesBox.getSelectedIndex()
+      if (selectedIndex &gt; -1
+          && selectedIndex &lt; existingCookiesBox.getItemCount()) {
+        val cookieName = existingCookiesBox.getValue(selectedIndex)
+        Cookies.removeCookie(cookieName)
+        existingCookiesBox.removeItem(selectedIndex)
+        updateExstingCookie()
+      }
+    }
+
+    // Return the main layout
+    refreshExistingCookies(null)
+    mainLayout
+  }
+
+  /**
+   * Refresh the list of existing cookies.
+   * 
+   * @param selectedCookie the cookie to select by default
+   */
+  private def refreshExistingCookies(selectedCookie: String) {
+    // Clear the existing cookies
+    existingCookiesBox.clear()
+
+    // Add the cookies
+    var selectedIndex = 0
+    val cookies = Cookies.getCookieNames()
+    for (cookie &lt;- cookies) {
+      existingCookiesBox.addItem(cookie)
+      if (cookie.equals(selectedCookie)) {
+        selectedIndex = existingCookiesBox.getItemCount() - 1
+      }
+    }
+
+    // Select the index of the selectedCookie. Use a DeferredCommand to give
+    // the options time to register in Opera.
+    val selectedIndexFinal = selectedIndex
+    DeferredCommand.addCommand(new Command() {
+      def execute() {
+        // Select the default cookie
+        if (selectedIndexFinal &lt; existingCookiesBox.getItemCount()) {
+          existingCookiesBox.setSelectedIndex(selectedIndexFinal)
+        }
+
+        // Display the selected cookie value
+        updateExstingCookie()
+      }
+    })
+  }
+
+  /**
+   * Retrieve the value of the existing cookie and put it into to value label.
+   */
+  private def updateExstingCookie() {
+    // Cannot update if there are no items
+    if (existingCookiesBox.getItemCount() &lt; 1) {
+      cookieNameBox.setText("")
+      cookieValueBox.setText("")
+    } else {
+      val selectedIndex = existingCookiesBox.getSelectedIndex()
+      val cookieName = existingCookiesBox.getValue(selectedIndex)
+      val cookieValue = Cookies.getCookie(cookieName)
+      cookieNameBox.setText(cookieName)
+      cookieValueBox.setText(cookieValue)
+    }
+  }
+
+</pre>

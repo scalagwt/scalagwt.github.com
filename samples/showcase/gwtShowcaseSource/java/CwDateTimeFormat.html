@@ -1,0 +1,185 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwDateTimeFormatDescription(): String
+
+    def cwDateTimeFormatFailedToParseInput(): String
+
+    def cwDateTimeFormatFormattedLabel(): String
+
+    def cwDateTimeFormatInvalidPattern(): String
+
+    def cwDateTimeFormatName(): String
+
+    def cwDateTimeFormatPatternLabel(): String
+
+    def cwDateTimeFormatPatterns(): Array[String]
+
+    def cwDateTimeFormatValueLabel(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Use a Grid to layout the content
+    val layout = new Grid(4, 2)
+    val formatter = layout.getCellFormatter()
+    layout.setCellSpacing(5)
+
+    // Add a field to select the pattern
+    patternList = new ListBox()
+    patternList.setWidth("17em")
+    val patterns = constants.cwDateTimeFormatPatterns
+    for (pattern &lt;- patterns) {
+      patternList.addItem(pattern)
+    }
+    patternList.addChangeHandler(new ChangeHandler() {
+      def onChange(event: ChangeEvent) = updatePattern()
+    })
+    layout.setHTML(0, 0, constants.cwDateTimeFormatPatternLabel)
+    layout.setWidget(0, 1, patternList)
+
+    // Add a field to display the pattern
+    patternBox = new TextBox()
+    patternBox.setWidth("17em")
+    patternBox.addKeyUpHandler(new KeyUpHandler() {
+      def onKeyUp(event: KeyUpEvent) = updatePattern()
+    })
+
+    layout.setWidget(1, 1, patternBox)
+
+    // Add a field to set the value
+    valueBox = new TextBox()
+    valueBox.setWidth("17em")
+    valueBox.setText("13 September 1999 12:34:56")
+    valueBox.addKeyUpHandler(new KeyUpHandler() {
+      def onKeyUp(event: KeyUpEvent) = updateFormattedValue()
+    })
+
+    layout.setHTML(2, 0, constants.cwDateTimeFormatValueLabel)
+    layout.setWidget(2, 1, valueBox)
+
+    // Add a field to display the formatted value
+    formattedBox = new Label()
+    formattedBox.setWidth("17em")
+    layout.setHTML(3, 0, constants.cwDateTimeFormatFormattedLabel)
+    layout.setWidget(3, 1, formattedBox)
+    formatter.setVerticalAlignment(3, 0, HasVerticalAlignment.ALIGN_TOP)
+
+    // Return the layout Widget
+    updatePattern()
+    layout
+  }
+
+  /**
+   * Show an error message. Pass in null to clear the error message.
+   * 
+   * @param errorMsg the error message
+   */
+  private def showErrorMessage(errorMsg: String) {
+    if (errorMsg == null) {
+      formattedBox.removeStyleName("cw-RedText")
+    } else {
+      formattedBox.setText(errorMsg)
+      formattedBox.addStyleName("cw-RedText")
+    }
+  }
+
+  /**
+   * Update the formatted value based on the user entered value and pattern.
+   */
+  private def updateFormattedValue() {
+    val sValue = valueBox.getText()
+    if (!sValue.equals("")) {
+      try {
+        val date = new Date(sValue)
+        val formattedValue = activeFormat.format(date)
+        formattedBox.setText(formattedValue)
+        showErrorMessage(null)
+      } catch {
+        case e: IllegalArgumentException =&gt;
+          showErrorMessage(constants.cwDateTimeFormatFailedToParseInput)
+      }
+    } else {
+      formattedBox.setText("&lt;None&gt;")
+    }
+  }
+
+  /**
+   * Update the selected pattern based on the pattern in the list.
+   */
+  private def updatePattern() {
+    patternList.getSelectedIndex match {
+      // Date + Time
+      case 0 =&gt;
+        activeFormat = DateTimeFormat.getFullDateTimeFormat
+        patternBox.setText(activeFormat.getPattern)
+        patternBox.setEnabled(false)
+      case 1 =&gt;
+        activeFormat = DateTimeFormat.getLongDateTimeFormat
+        patternBox.setText(activeFormat.getPattern)
+        patternBox.setEnabled(false)
+      case 2 =&gt;
+        activeFormat = DateTimeFormat.getMediumDateTimeFormat
+        patternBox.setText(activeFormat.getPattern)
+        patternBox.setEnabled(false)
+      case 3 =&gt;
+        activeFormat = DateTimeFormat.getShortDateTimeFormat
+        patternBox.setText(activeFormat.getPattern)
+        patternBox.setEnabled(false)
+
+      // Date only
+      case 4 =&gt;
+        activeFormat = DateTimeFormat.getFullDateFormat
+        patternBox.setText(activeFormat.getPattern)
+        patternBox.setEnabled(false)
+      case 5 =&gt;
+        activeFormat = DateTimeFormat.getLongDateFormat
+        patternBox.setText(activeFormat.getPattern)
+        patternBox.setEnabled(false)
+      case 6 =&gt;
+        activeFormat = DateTimeFormat.getMediumDateFormat
+        patternBox.setText(activeFormat.getPattern)
+        patternBox.setEnabled(false)
+      case 7 =&gt;
+        activeFormat = DateTimeFormat.getShortDateFormat
+        patternBox.setText(activeFormat.getPattern)
+        patternBox.setEnabled(false)
+
+      // Time only
+      case 8 =&gt;
+        activeFormat = DateTimeFormat.getFullTimeFormat
+        patternBox.setText(activeFormat.getPattern)
+        patternBox.setEnabled(false)
+      case 9 =&gt;
+        activeFormat = DateTimeFormat.getLongTimeFormat
+        patternBox.setText(activeFormat.getPattern)
+        patternBox.setEnabled(false)
+      case 10 =&gt;
+        activeFormat = DateTimeFormat.getMediumTimeFormat
+        patternBox.setText(activeFormat.getPattern)
+        patternBox.setEnabled(false)
+      case 11 =&gt;
+        activeFormat = DateTimeFormat.getShortTimeFormat
+        patternBox.setText(activeFormat.getPattern)
+        patternBox.setEnabled(false)
+
+      // Custom
+      case 12 =&gt;
+        patternBox.setEnabled(true)
+        val pattern = patternBox.getText
+        try {
+          activeFormat = DateTimeFormat.getFormat(pattern)
+        } catch {
+          case e: IllegalArgumentException =&gt;
+            showErrorMessage(constants.cwDateTimeFormatInvalidPattern)
+        }
+    }
+
+    // Update the formatted value
+    updateFormattedValue()
+  }
+
+</pre>

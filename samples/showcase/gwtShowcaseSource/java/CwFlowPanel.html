@@ -1,0 +1,31 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwFlowPanelDescription(): String
+
+    def cwFlowPanelItem(): String
+
+    def cwFlowPanelName(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create a Flow Panel
+    val flowPanel = new FlowPanel();
+    flowPanel.ensureDebugId("cwFlowPanel");
+
+    // Add some content to the panel
+    for (i &lt;- 0 until 30) {
+      val checkbox = new CheckBox(constants.cwFlowPanelItem + " " + i);
+      checkbox.addStyleName("cw-FlowPanel-checkBox");
+      flowPanel.add(checkbox);
+    }
+
+    // Return the content
+    flowPanel;
+  }
+
+</pre>

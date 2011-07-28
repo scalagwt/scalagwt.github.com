@@ -1,0 +1,65 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwBasicPopupClickOutsideInstructions(): String
+
+    def cwBasicPopupDescription(): String
+
+    def cwBasicPopupInstructions(): String
+
+    def cwBasicPopupName(): String
+
+    def cwBasicPopupShowButton(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create a basic popup widget
+    val simplePopup = new DecoratedPopupPanel(true)
+    simplePopup.ensureDebugId("cwBasicPopup-simplePopup")
+    simplePopup.setWidth("150px")
+    simplePopup.setWidget(new HTML(
+        constants.cwBasicPopupClickOutsideInstructions))
+
+    // Create a button to show the popup
+    val openButton = new Button(constants.cwBasicPopupShowButton,
+      { event: ClickEvent =&gt;
+          // Reposition the popup relative to the button
+          val source = event.getSource.asInstanceOf[Widget]
+          val left = source.getAbsoluteLeft + 10
+          val top = source.getAbsoluteTop + 10
+          simplePopup.setPopupPosition(left, top)
+
+          // Show the popup
+          simplePopup.show()
+      })
+
+    // Create a popup to show the full size image
+    val jimmyFull = new Image(Showcase.images.jimmy)
+    val imagePopup = new PopupPanel(true)
+    imagePopup.setAnimationEnabled(true)
+    imagePopup.ensureDebugId("cwBasicPopup-imagePopup")
+    imagePopup.setWidget(jimmyFull)
+    jimmyFull onClick { _ =&gt; imagePopup.hide() }
+
+    // Add an image thumbnail
+    val jimmyThumb = new Image(Showcase.images.jimmyThumb)
+    jimmyThumb.ensureDebugId("cwBasicPopup-thumb")
+    jimmyThumb.addStyleName("cw-BasicPopup-thumb")
+    jimmyThumb onClick { _ =&gt; imagePopup.center() }
+
+    // Add the widgets to a panel
+    val vPanel = new VerticalPanel()
+    vPanel.setSpacing(5)
+    vPanel.add(openButton)
+    vPanel.add(new HTML("&lt;br&gt;&lt;br&gt;&lt;br&gt;" + constants.cwBasicPopupInstructions))
+    vPanel.add(jimmyThumb)
+
+    // Return the panel
+    vPanel
+  }
+
+</pre>

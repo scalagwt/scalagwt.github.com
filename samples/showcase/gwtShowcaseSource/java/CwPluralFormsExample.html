@@ -1,0 +1,136 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwPluralFormsExampleArg0Label(): String
+
+    def cwPluralFormsExampleDescription(): String
+
+    def cwPluralFormsExampleFormattedLabel(): String
+
+    def cwPluralFormsExampleLinkText(): String
+
+    def cwPluralFormsExampleName(): String
+  }
+
+  /**
+   * The {@link TextBox} where the user enters argument 0.
+   */
+  private var arg0Box: TextBox = null
+
+  /**
+   * The plural messages used in this example.
+   */
+  @ShowcaseData
+  private var pluralMessages: PluralMessages = null
+
+  /**
+   * The {@link Label} used to display the message.
+   */
+  @ShowcaseData
+  private var formattedMessage: Label = null
+
+  /**
+   * Indicates whether or not we have loaded the {@link PluralMessages} java
+   * source yet.
+   */
+  private var javaLoaded = false
+
+  /**
+   * The widget used to display {@link PluralMessages} java source.
+   */
+  private var javaWidget: HTML = null
+
+  /**
+   * Indicates whether or not we have loaded the {@link ErrorMessages}
+   * properties source yet.
+   */
+  private var propertiesLoaded = false
+
+  /**
+   * The widget used to display {@link ErrorMessages} properties source.
+   */
+  private var propertiesWidget: HTML = null
+
+  override def getDescription() = constants.cwPluralFormsExampleDescription
+
+  override def getName() = constants.cwPluralFormsExampleName
+
+  override def hasStyle() = false
+
+  /**
+   * Initialize this example.
+   */
+  @ShowcaseSource
+  override def onInitialize(): Widget = {
+    // Create the internationalized error messages
+    pluralMessages = GWT.create(classOf[PluralMessages])
+
+    // Use a FlexTable to layout the content
+    val layout = new FlexTable()
+    val formatter = layout.getFlexCellFormatter()
+    layout.setCellSpacing(5)
+
+    // Add a link to the source code of the Interface
+    val link = new HTML(" &lt;a href=\"javascript:void(0);
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create the internationalized error messages
+    pluralMessages = GWT.create(classOf[PluralMessages])
+
+    // Use a FlexTable to layout the content
+    val layout = new FlexTable()
+    val formatter = layout.getFlexCellFormatter()
+    layout.setCellSpacing(5)
+
+    // Add a link to the source code of the Interface
+    val link = new HTML(" &lt;a href=\"javascript:void(0);\"&gt;PluralMessages&lt;/a&gt;");
+    link.addClickHandler(new ClickHandler() {
+      def onClick(event: ClickEvent) = selectTab(2)
+    })
+    val linkPanel = new HorizontalPanel()
+    linkPanel.setSpacing(3)
+    linkPanel.add(new HTML(constants.cwPluralFormsExampleLinkText))
+    linkPanel.add(link)
+    layout.setWidget(0, 0, linkPanel)
+    formatter.setColSpan(0, 0, 2)
+
+    // Add argument 0
+    arg0Box = new TextBox()
+    arg0Box.setText("13")
+    layout.setHTML(2, 0, constants.cwPluralFormsExampleArg0Label)
+    layout.setWidget(2, 1, arg0Box)
+
+    // Add the formatted message
+    formattedMessage = new Label()
+    layout.setHTML(5, 0, constants.cwPluralFormsExampleFormattedLabel)
+    layout.setWidget(5, 1, formattedMessage)
+    formatter.setVerticalAlignment(5, 0, HasVerticalAlignment.ALIGN_TOP)
+
+    // Add handlers to all of the argument boxes
+    val keyUpHandler = new KeyUpHandler() {
+      def onKeyUp(event: KeyUpEvent) = updateMessage()
+    }
+    arg0Box.addKeyUpHandler(keyUpHandler)
+
+    // Return the layout Widget
+    updateMessage()
+    layout
+  }
+
+  /**
+   * Update the formatted message.
+   */
+  private def updateMessage() {
+    try {
+      val count = Integer.parseInt(arg0Box.getText.trim)
+      formattedMessage.setText(pluralMessages.treeCount(count))
+    } catch {
+      case e: NumberFormatException =&gt; // Ignore.
+    }
+  }
+
+</pre>

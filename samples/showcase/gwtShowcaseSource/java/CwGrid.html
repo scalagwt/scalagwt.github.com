@@ -1,0 +1,31 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwGridDescription(): String
+
+    def cwGridName(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create a grid
+    val grid = new Grid(4, 4)
+
+    // Add images to the grid
+    val numRows = grid.getRowCount()
+    val numColumns = grid.getColumnCount()
+    for (row &lt;- 0 until numRows) {
+      for (col &lt;- 0 until numColumns) {
+        grid.setWidget(row, col, new Image(Showcase.images.gwtLogo()))
+      }
+    }
+
+    // Return the panel
+    grid.ensureDebugId("cwGrid")
+    grid
+  }
+
+</pre>

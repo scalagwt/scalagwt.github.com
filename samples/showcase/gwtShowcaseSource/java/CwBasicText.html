@@ -1,0 +1,105 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwBasicTextAreaLabel(): String
+
+    def cwBasicTextDescription(): String
+
+    def cwBasicTextName(): String
+
+    def cwBasicTextNormalLabel(): String
+
+    def cwBasicTextPasswordLabel(): String
+
+    def cwBasicTextReadOnly(): String
+
+    def cwBasicTextSelected(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create a panel to layout the widgets
+    val vpanel = new VerticalPanel()
+    vpanel.setSpacing(5)
+
+    // Add a normal and disabled text box
+    val normalText = new TextBox()
+    normalText.ensureDebugId("cwBasicText-textbox")
+    val disabledText = new TextBox()
+    disabledText.ensureDebugId("cwBasicText-textbox-disabled")
+    disabledText.setText(constants.cwBasicTextReadOnly())
+    disabledText.setEnabled(false)
+    vpanel.add(new HTML(constants.cwBasicTextNormalLabel()))
+    vpanel.add(createTextExample(normalText, true))
+    vpanel.add(createTextExample(disabledText, false))
+
+    // Add a normal and disabled password text box
+    val normalPassword = new PasswordTextBox()
+    normalPassword.ensureDebugId("cwBasicText-password")
+    val disabledPassword = new PasswordTextBox()
+    disabledPassword.ensureDebugId("cwBasicText-password-disabled")
+    disabledPassword.setText(constants.cwBasicTextReadOnly())
+    disabledPassword.setEnabled(false)
+    vpanel.add(new HTML("&lt;br&gt;&lt;br&gt;" + constants.cwBasicTextPasswordLabel()))
+    vpanel.add(createTextExample(normalPassword, true))
+    vpanel.add(createTextExample(disabledPassword, false))
+
+    // Add a text area
+    val textArea = new TextArea()
+    textArea.ensureDebugId("cwBasicText-textarea")
+    textArea.setVisibleLines(5)
+    vpanel.add(new HTML("&lt;br&gt;&lt;br&gt;" + constants.cwBasicTextAreaLabel()))
+    vpanel.add(createTextExample(textArea, true))
+
+    // Return the panel
+    vpanel
+  }
+
+  /**
+   * Create a TextBox example that includes the text box and an optional
+   * handler that updates a Label with the currently selected text.
+   * 
+   * @param textBox the text box to handle
+   * @param addSelection add handlers to update label
+   * @return the Label that will be updated
+   */
+  private def createTextExample(textBox: TextBoxBase, addSelection: Boolean): HorizontalPanel = {
+    // Add the text box and label to a panel
+    val hPanel = new HorizontalPanel()
+    hPanel.setSpacing(4)
+    hPanel.add(textBox)
+
+    // Add handlers
+    if (addSelection) {
+      // Create the new label
+      val label = new Label(constants.cwBasicTextSelected() + ": 0, 0")
+
+      // Add a KeyUpHandler
+      textBox onKeyUp { _ =&gt; updateSelectionLabel(textBox, label) }
+
+      // Add a ClickHandler
+      textBox onClick { _ =&gt; updateSelectionLabel(textBox, label) }
+
+      // Add the label to the box
+      hPanel.add(label)
+    }
+
+    // Return the panel
+    hPanel
+  }
+
+  /**
+   * Update the text in one of the selection labels.
+   * 
+   * @param textBox the text box
+   * @param label the label to update
+   */
+  private def updateSelectionLabel(textBox: TextBoxBase, label: Label) {
+    label.setText(constants.cwBasicTextSelected() + ": "
+        + textBox.getCursorPos() + ", " + textBox.getSelectionLength())
+  }
+
+</pre>

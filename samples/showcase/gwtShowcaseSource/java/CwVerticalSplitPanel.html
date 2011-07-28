@@ -1,0 +1,38 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwVerticalSplitPanelDescription(): String
+
+    def cwVerticalSplitPanelName(): String
+
+    def cwVerticalSplitPanelText(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create a Vertical Split Panel
+    val vSplit = new VerticalSplitPanel();
+    vSplit.ensureDebugId("cwVerticalSplitPanel");
+    vSplit.setSize("500px", "350px");
+    vSplit.setSplitPosition("30%");
+
+    // Add some content
+    var randomText = constants.cwVerticalSplitPanelText + " ";
+    for (i &lt;- 0 until 2) {
+      randomText += randomText;
+    }
+    vSplit.setTopWidget(new HTML(randomText));
+    vSplit.setBottomWidget(new HTML(randomText));
+
+    // Wrap the split panel in a decorator panel
+    val decPanel = new DecoratorPanel();
+    decPanel.setWidget(vSplit);
+
+    // Return the content
+    decPanel;
+  }
+
+</pre>

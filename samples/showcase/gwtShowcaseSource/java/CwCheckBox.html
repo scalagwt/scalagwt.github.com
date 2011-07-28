@@ -1,0 +1,41 @@
+<pre class="prettyprint">  /**
+   * The constants used in this Content Widget.
+   */
+  trait CwConstants extends Constants with ContentWidget.CwConstants {
+    def cwCheckBoxCheckAll(): String
+
+    def cwCheckBoxDays(): Array[String]
+
+    def cwCheckBoxDescription(): String
+
+    def cwCheckBoxName(): String
+  }
+
+  /**
+   * Initialize this example.
+   */
+  override def onInitialize(): Widget = {
+    // Create a vertical panel to align the check boxes
+    val vPanel = new VerticalPanel()
+    val label = new HTML(constants.cwCheckBoxCheckAll)
+    label.ensureDebugId("cwCheckBox-label")
+    vPanel.add(label)
+
+    // Add a checkbox for each day of the week
+    val daysOfWeek = constants.cwCheckBoxDays
+    for (i &lt;- 0 until daysOfWeek.length) {
+      val day = daysOfWeek(i)
+      val checkBox = new CheckBox(day)
+      checkBox.ensureDebugId("cwCheckBox-" + day)
+      // Disable the weekends
+      if (i &gt;= 5) {
+        checkBox.setEnabled(false)
+      }
+      vPanel.add(checkBox)
+    }
+
+    // Return the panel of checkboxes
+    vPanel
+  }
+
+</pre>
