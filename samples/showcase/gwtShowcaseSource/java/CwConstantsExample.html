@@ -48,11 +48,8 @@
     // Create a list box of favorite colors
     val colorBox = new ListBox()
     val colorMap = exampleConstants.colorMap()
-    for (entry &lt;- colorMap.entrySet()) {
-      val key = entry.getKey()
-      val value = entry.getValue()
-      colorBox.addItem(value, key)
-    }
+    for ((k, v) &lt;- colorMap)
+      colorBox.addItem(v, k)
     layout.setHTML(3, 0, exampleConstants.favoriteColor())
     layout.setWidget(3, 1, colorBox)
 
