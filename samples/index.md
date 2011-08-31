@@ -23,7 +23,7 @@ We took [scala-gwt-dlx](http://code.google.com/p/scala-gwt-dlx/) project and dec
 as opposed to original [client-server application](http://www.scala-lang.org/node/1826). By suceeding in doing that
 we have shown that you can move non-trivial code between server and browser.
 
-[Phone book mnemonics](Mnemonics.html)
+[Phone mnemonics](Mnemonics.html)
 --------------------------------------
 
 This sample shows that Scala+GWT supports full power of Scala collections in a browser. We took example from
