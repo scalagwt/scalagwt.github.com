@@ -30,13 +30,10 @@
     val userInfoGrid = new FlexTable()
     val userInfo = Dictionary.getDictionary("userInfo")
     var columnCount = 0
-    for (key &lt;- userInfo.keySet) {
-      // Get the value from the set
-      val value = userInfo.get(key)
-
+    for ((k, v) &lt;- userInfo) {
       // Add a column with the data
-      userInfoGrid.setHTML(0, columnCount, key)
-      userInfoGrid.setHTML(1, columnCount, value)
+      userInfoGrid.setHTML(0, columnCount, k)
+      userInfoGrid.setHTML(1, columnCount, v)
 
       // Go to the next column
       columnCount += 1
