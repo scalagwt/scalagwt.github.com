@@ -14,8 +14,10 @@ via the GWT toolchain.
 Status
 ------
 
-One milestone past "Hello World."  Someone help me define what that
-is ...
+We can compile most of Scala code. Check [Samples](samples) for
+live demos.
+
+First milestone release coming soon.
 
 Contributors
 ------------
@@ -30,9 +32,9 @@ Google Group
 ------------
 [scalagwt@googlegroups.com](http://groups.google.com/group/scalagwt)
 
-Code Review
+Code
 -----------
-[Gerrit Code Review](http://review.source.gogoego.com)
+[GitHub](http://github.com/scalagwt)
 
 Twitter
 -------

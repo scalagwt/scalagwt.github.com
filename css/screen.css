@@ -5,11 +5,12 @@
 /*****************************************************************************/
 
 /* Global Reset */
-
+/* grek: I turned this off because it was breaking the whole page layout */
+/*
 * {
   margin: 0;
   padding: 0;
-}
+}*/
 
 html, body {
   height: 100%;
