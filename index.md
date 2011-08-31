@@ -14,10 +14,10 @@ via the GWT toolchain.
 Status
 ------
 
-We can compile most of Scala code. Check [Samples](samples) for
+We can compile most of Scala code. Check [samples](samples) for
 live demos.
 
-First milestone release coming soon.
+We've got first release. Check [release notes](releasenotes) and [download](!!! HERE WE HAVE TO PUT DOWNLOAD LINK).
 
 Contributors
 ------------
