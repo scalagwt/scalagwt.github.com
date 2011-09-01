@@ -26,6 +26,7 @@ Contributors
 
 * Grzegorz Kossakowski
 * Lex Spoon
+* Aaron Novstrup
 * Stephen Haberman
 * Rob Heittman
 
