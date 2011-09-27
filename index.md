@@ -17,9 +17,9 @@ Status
 We can compile most of Scala code. Check [samples](samples) for
 live demos.
 
-We are excited to announce our first milestone release. Check
+We are excited to announce our second milestone release. Check
 [release notes](releasenotes) and
-[download](https://github.com/downloads/scalagwt/scalagwt-sample/scalagwt-sample-0.1-M1.zip).
+[download](https://github.com/downloads/scalagwt/scalagwt-sample/scalagwt-sample-0.1-M2.zip).
 
 Hackers' guide
 --------------
