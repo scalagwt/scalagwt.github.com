@@ -37,15 +37,23 @@ Building GWT repo is much easier. Just type `ant dist-dev`. You need to have gwt
 You need to execute following commands:
 
     mkdir -p lib/gwt
-    cp $SCALAGWT_GWT/build/lib/gwt-dev.jar $SCALAGWT_GWT/build/lib/gwt-user.jar $SCALAGWT_GWT/build/lib/gwt-servlet.jar $SCALAGWT_GWT/build/lib/gwt-servlet-deps.jar lib/gwt/
+    cp $SCALAGWT_GWT/build/lib/gwt-dev.jar lib/gwt/
+    cp $SCALAGWT_GWT/build/lib/gwt-user.jar lib/gwt/
+    cp $SCALAGWT_GWT/build/lib/gwt-servlet.jar lib/gwt/
+    cp $SCALAGWT_GWT/build/lib/gwt-servlet-deps.jar lib/gwt/
     cp $GWT_TOOLS/lib/javax/validation/validation-api-1.0.0.GA-sources.jar lib/gwt
 
     mkdir -p lib/scala
-    cp $SCALAGWT_SCALA/build/pack/lib/scala-compiler.jar $SCALAGWT_SCALA/build/pack/lib/scala-library.jar $SCALAGWT_SCALA/build/pack/lib/scala-library-gwt.jar $SCALAGWT_SCALA/build/pack/lib/protobuf-java-2.4.1.jar lib/scala/
+    cp $SCALAGWT_SCALA/build/pack/lib/scala-compiler.jar lib/scala/
+    cp $SCALAGWT_SCALA/build/pack/lib/scala-library.jar lib/scala/
+    cp $SCALAGWT_SCALA/build/pack/lib/scala-library-gwt.jar lib/scala/
+    cp $SCALAGWT_SCALA/build/pack/lib/protobuf-java-2.4.1.jar lib/scala/ lib/scala/
     cp $SCALAGWT_SCALA/build/pack/misc/scala-devel/plugins/continuations.jar lib/scala/
     cp $SCALAGWT_SCALA/build/quick/misc/scala-devel/plugins/factorymanifests.jar lib/scala/
     
 Assuming that `$SCALAGWT_GWT`, `$SCALAGWT_SCALA`, `$GWT_TOOLS` environment variables are set.
+
+Then run `ant`.
 
 Issues
 ------
