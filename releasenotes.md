@@ -74,8 +74,8 @@ Watch [video](http://www.youtube.com/watch?v=w1nluQmkE8g) showing full-blown dev
 ### Known issues
 
   * many patterns in pattern matching logic are not supported (tough issue) examples include
-  * pattern alternatives (`|`)
-  * guard patterns (`if` guard)
+    * pattern alternatives (`|`)
+    * guard patterns (`if` guard)
   * in some cases (like gwtdlx sample) optimizations enabled in gwt lead to broken JS code
 
 ### Reporting issues
