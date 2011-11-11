@@ -97,13 +97,13 @@ If you want to discuss your problem before reporting it, join
 ### What if I don't know GWT?
 
 That shouldn't be a big problem. You've got Scala source code for samples that show basic functionality
-and provides basic setup. You may want to start with channging hello world sample, recompiling it and
+and provides basic setup. You may want to start with changing hello world sample, recompiling it and
 testing in a browser.
 
 ### What if I don't know Scala?
 
-You might still want to check out samples to see how they might look like in other language than Java.
-We'll be cutting a lot more of boilerplate code once GWT libraries and APIs receive enough of Scala's
+You might still want to check out samples to see how they might look in a language other than Java.
+We'll be cutting a lot more of the boilerplate code once GWT libraries and APIs receive enough of Scala's
 [pimp-love](http://www.artima.com/weblogs/viewpost.jsp?thread=179766).
 
 ### Need help? Want to discuss something?
@@ -158,13 +158,13 @@ If you want to discuss your problem before reporting it, join
 ### What if I don't know GWT?
 
 That shouldn't be a big problem. You've got Scala source code for samples that show basic functionality
-and provides basic setup. You may want to start with channging hello world sample, recompiling it and
+and provides basic setup. You may want to start with changing hello world sample, recompiling it and
 testing in a browser.
 
 ### What if I don't know Scala?
 
-You might still want to check out samples to see how they might look like in other language than Java.
-We'll be cutting a lot more of boilerplate code once GWT libraries and APIs receive enough of Scala's
+You might still want to check out samples to see how they might look in a language other than Java.
+We'll be cutting a lot more of the boilerplate code once GWT libraries and APIs receive enough of Scala's
 [pimp-love](http://www.artima.com/weblogs/viewpost.jsp?thread=179766).
 
 ### Need help? Want to discuss something?
