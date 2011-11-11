@@ -97,13 +97,74 @@ If you want to discuss your problem before reporting it, join
 ### What if I don't know GWT?
 
 That shouldn't be a big problem. You've got Scala source code for samples that show basic functionality
-and provides basic setup. You may want to start with channging hello world sample, recompiling it and
+and provides basic setup. You may want to start with changing hello world sample, recompiling it and
 testing in a browser.
 
 ### What if I don't know Scala?
 
-You might still want to check out samples to see how they might look like in other language than Java.
-We'll be cutting a lot more of boilerplate code once GWT libraries and APIs receive enough of Scala's
+You might still want to check out samples to see how they might look in a language other than Java.
+We'll be cutting a lot more of the boilerplate code once GWT libraries and APIs receive enough of Scala's
+[pimp-love](http://www.artima.com/weblogs/viewpost.jsp?thread=179766).
+
+### Need help? Want to discuss something?
+
+Join us here: [scalagwt@googlegroups.com](http://groups.google.com/group/scalagwt).
+
+Scala+GWT 0.1-M3
+----------------
+
+The third official milestone release from the Scala+GWT project.
+
+You can check release notes for previous release [here](http://scalagwt.github.com/releasenotes).
+
+This release consists of just samples packaged along with snapshot
+of jars needed to build them. Those jars include our own version
+of both GWT and Scala.
+
+This release doesn't come with any official artifacts apart from the
+tarball you can download from [http://github.com/scalagwt/scalagwt-sample](http://github.com/scalagwt/scalagwt-sample).
+
+### Changes since last release
+
+  * Eclipse support for development mode
+
+### Eclipse support
+
+We've integrated [Scala IDE](http://www.scala-ide.org/) so you can develop GWT applications in Scala using Eclipse. Development mode is supported.
+
+### Known issues
+
+  * many patterns in pattern matching logic are not supported (should be fixed in next release) examples include
+    * pattern alternatives (`|`)
+    * guard patterns (`if` guard)
+  * in some cases (like gwtdlx sample) optimizations enabled in gwt lead to broken JS code
+
+### Reporting issues
+
+We appreciate feedback. If you find something that doesn't work (e.g. crashes either Scala or GWT compiler)
+or JavaScript gives you weird results we'd love to hear about it. The most effective way of reporting issues
+is to modify `Hello World` sample to show your problem. Exact steps are:
+
+  1. Fork `scalagwt-sample` repo from here: http://github.com/scalagwt/scalagwt-sample
+  2. Clone it: `git clone git://github.com/YOUR_USER_NAME/scalagwt-sample.git`
+  3. Modify hello world sample located in `src/com/google/gwt/sample/jribble/client`
+  4. Commit and publish your example.
+  5. File a ticket here: http://github.com/scalagwt/scalagwt-sample and mention your
+     fork while explaining your issue.
+
+If you want to discuss your problem before reporting it, join
+[scalagwt@googlegroups.com](http://groups.google.com/group/scalagwt).
+
+### What if I don't know GWT?
+
+That shouldn't be a big problem. You've got Scala source code for samples that show basic functionality
+and provides basic setup. You may want to start with changing hello world sample, recompiling it and
+testing in a browser.
+
+### What if I don't know Scala?
+
+You might still want to check out samples to see how they might look in a language other than Java.
+We'll be cutting a lot more of the boilerplate code once GWT libraries and APIs receive enough of Scala's
 [pimp-love](http://www.artima.com/weblogs/viewpost.jsp?thread=179766).
 
 ### Need help? Want to discuss something?
