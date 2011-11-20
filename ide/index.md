@@ -51,4 +51,4 @@ Those are configurations that allow you to run various samples. It's recommended
 
 After opening it in a browser it takes a while to finish loading. After that, you should be able to click on a button and see the message.
 
-For inspiration what you can do check out this video: http://www.youtube.com/watch?v=w1nluQmkE8g
+For inspiration what you can do check out [this video](http://www.youtube.com/watch?v=w1nluQmkE8g).
