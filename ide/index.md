@@ -28,7 +28,7 @@ We have custom build of Scala plugin for Eclipse. Install it from this update si
 Import samples
 --------------
 
-Download 0.1-M3 version of samples from here:
+Download 0.1-M3 version of samples from here: https://github.com/downloads/scalagwt/scalagwt-sample/scalagwt-sample-0.1-M3.zip
 
 Import them to fresh Eclipse workspace as an existing project.
 
